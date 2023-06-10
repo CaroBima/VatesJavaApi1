@@ -27,4 +27,13 @@ public class Api1Controller {
 
         return response;
     }
+
+
+    @GetMapping("/programas")
+    public String getExternalPrograms(){
+        RestTemplate client = new RestTemplate();
+        String response = client.getForObject("https://www.cultura.gob.ar/api/v2.0/programas", String.class);
+
+        return response;
+    }
 }
