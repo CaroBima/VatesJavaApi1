@@ -1,8 +1,7 @@
 package com.digitalworlds.api1.controller;
 
-import ch.qos.logback.classic.spi.TurboFilterList;
-import com.digitalworlds.api1.dto.ProgramaDTO;
 import com.digitalworlds.api1.model.Programa;
+import com.digitalworlds.api1.dto.ProgramaDTO;
 import com.digitalworlds.api1.model.Programas;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,10 +38,13 @@ public class Api1Controller {
 
     @GetMapping("/programas")
     public  List<ProgramaDTO> getExternalPrograms(){
+
         RestTemplate client = new RestTemplate();
+
         String response = client.getForObject("https://www.cultura.gob.ar/api/v2.0/programas", String.class);
 
         ObjectMapper objectMapper = new ObjectMapper();
+
         Programas prog = new Programas();
         List<ProgramaDTO> listaProgramas = new ArrayList<ProgramaDTO>();
         //pasa el json a objeto:
@@ -64,14 +66,16 @@ public class Api1Controller {
                 programaDto.setDepende_de(unPrograma.getDepende_de());
 
                 listaProgramas.add(programaDto);
-
             }
+
 
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
 
+
         return listaProgramas;
+
     }
 }
