@@ -28,15 +28,10 @@ public class CulturaService implements ICulturaService{
             //recorro la lista de programas para obtener la informacion y guardarla en el ProgramaDTO
             for (Programa unPrograma : prog.getResults()) {
                 ProgramaDTO programaDto = new ProgramaDTO();
-                programaDto.setAutoridad(unPrograma.getAutoridad());
                 programaDto.setLink(unPrograma.getLink());
                 programaDto.setDescripcion(unPrograma.getDescripcion());
-                programaDto.setEmail(unPrograma.getEmail());
-                programaDto.setDireccion(unPrograma.getDireccion());
                 programaDto.setNombre(unPrograma.getNombre());
                 programaDto.setUrl(unPrograma.getUrl());
-                programaDto.setTelefono(unPrograma.getTelefono());
-                programaDto.setProvincia(unPrograma.getProvincia());
                 programaDto.setDepende_de(unPrograma.getDepende_de());
 
                 listaProgramas.add(programaDto);
