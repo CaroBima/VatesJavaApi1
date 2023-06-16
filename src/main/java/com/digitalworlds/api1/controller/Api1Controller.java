@@ -37,12 +37,5 @@ public class Api1Controller {
     }
 
 
-    @GetMapping("/programas")
-    public  List<ProgramaDTO> getExternalPrograms() {
 
-
-        return null;
-
-
-    }
 }
