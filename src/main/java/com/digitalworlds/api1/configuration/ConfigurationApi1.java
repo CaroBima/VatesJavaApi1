@@ -14,6 +14,7 @@ public class ConfigurationApi1 {
     @Value("${api.cultura.url}")
     private String culturaUrl;
 
+
     @Bean
     public WebMvcConfigurer corsConfigurer(){
         return new WebMvcConfigurer() {
