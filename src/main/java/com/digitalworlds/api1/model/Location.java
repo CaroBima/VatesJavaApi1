@@ -1,5 +1,5 @@
 
-package com.digitalworlds.api1.mapper;
+package com.digitalworlds.api1.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

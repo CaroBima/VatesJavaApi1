@@ -1,6 +1,6 @@
 package com.digitalworlds.api1.controller;
 
-import com.digitalworlds.api1.mapper.Clima;
+import com.digitalworlds.api1.model.Clima;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

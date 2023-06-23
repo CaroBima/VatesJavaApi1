@@ -1,5 +1,5 @@
 
-package com.digitalworlds.api1.mapper;
+package com.digitalworlds.api1.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,20 +17,23 @@ import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "location",
-    "current"
+    "text",
+    "icon",
+    "code"
 })
 @Generated("jsonschema2pojo")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Clima {
+public class Condition {
 
-    @JsonProperty("location")
-    public Location location;
-    @JsonProperty("current")
-    public Current current;
+    @JsonProperty("text")
+    public String text;
+    @JsonProperty("icon")
+    public String icon;
+    @JsonProperty("code")
+    public Integer code;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
