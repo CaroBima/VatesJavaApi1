@@ -1,7 +1,8 @@
 package com.digitalworlds.api1.services;
 
-import com.digitalworlds.api1.model.Clima;
+import com.digitalworlds.api1.dto.ClimaDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface IClimaService {
-    public Clima getWeatherData();
+    public ClimaDTO getWeatherData(String city) throws JsonProcessingException;
 }

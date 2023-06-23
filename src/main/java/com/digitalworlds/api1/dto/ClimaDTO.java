@@ -14,10 +14,10 @@ import java.util.Date;
 public class ClimaDTO {
     private String ciudad;
     private String país;
-    private float tempCelsius;
-    private Date ultimaActualizacion;
+    private Double tempCelsius;
+    private String ultimaActualizacion;
     private int humedad;
-    private float sensacionTermica;
-    private float vientoKmxH;
+    private Double sensacionTermica;
+    private Double vientoKmxH;
 
 }
