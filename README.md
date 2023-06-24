@@ -14,4 +14,4 @@
 
 ## Imágenes:
 
-<a href="url"><img src="https://github.com/CaroBima/VatesJavaDashboard/blob/master/capturas/dashboard.png" height="550"></a>
+<a href="url"><img src="https://github.com/CaroBima/VatesJavaDashboard/blob/main/capturas/dashboard.png" height="550"></a>
