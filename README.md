@@ -9,4 +9,4 @@
 
 ## Imágenes:
 
-<a href="url"><img src="https://github.com/CaroBima/VatesJavaDashboard/blob/master/capturas/dashboard.png" height="600"></a>
+<a href="url"><img src="https://github.com/CaroBima/VatesJavaDashboard/blob/master/capturas/dashboard.png" height="550"></a>
