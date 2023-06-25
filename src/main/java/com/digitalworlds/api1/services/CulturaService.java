@@ -5,6 +5,7 @@ import com.digitalworlds.api1.model.Programa;
 import com.digitalworlds.api1.model.Programas;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,12 +14,16 @@ import java.util.List;
 
 @Service
 public class CulturaService implements ICulturaService{
+
+    @Value("${api.cultura.url}")
+    private String culturaUrl;
+
     @Override
     public List<ProgramaDTO> getCulturaData() {
         RestTemplate client = new RestTemplate();
 
 
-        String response = client.getForObject("https://www.cultura.gob.ar/api/v2.0/programas", String.class);
+        String response = client.getForObject(culturaUrl, String.class);
 
         ObjectMapper objectMapper = new ObjectMapper();
 

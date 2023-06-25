@@ -5,11 +5,19 @@ import com.digitalworlds.api1.dto.ClimaDTO;
 import com.digitalworlds.api1.model.Clima;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class ClimaService implements IClimaService{
+
+    @Value("${api.weather.url}")
+    private String weatherUrl;
+
+    @Value("${weather.api.key}")
+    private String weatherKey;
+
     @Override
     public ClimaDTO getWeatherData(String city) throws JsonProcessingException {
         Clima clima;
@@ -17,7 +25,7 @@ public class ClimaService implements IClimaService{
         ConfigurationApi1 config = new ConfigurationApi1();
 
 
-        String url = "http://api.weatherapi.com/v1/current.json?key=c825c812079e41ca9b620745231206&q="+city;
+        String url = weatherUrl+"/current.json?key=" + weatherKey +"&q="+city;
         //String url = config.getWeatherUrl()+"/current.json?key="+config.getWeatherKey()+"&q="+city;
 
         RestTemplate client = new RestTemplate();
