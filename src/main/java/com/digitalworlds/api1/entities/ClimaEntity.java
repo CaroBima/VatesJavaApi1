@@ -15,7 +15,7 @@ import java.util.Date;
 public class ClimaEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String ciudad;

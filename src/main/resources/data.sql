@@ -1,5 +1,0 @@
-insert into clima (id, ciudad, pais, tempcelsius, ultimaactualizacion, humedad, sensaciontermica, vientokmxh, fechaConsulta) values (1, 'Córdoba', 'Argentina', 12.5,'2023-06-26 10:40', 83, 12.5, 15.00, '2023-06-26 10:43')
-insert into clima (id, ciudad, pais, tempcelsius, ultimaactualizacion, humedad, sensaciontermica, vientokmxh, fechaConsulta) values (2, 'Mendoza', 'Argentina', 18,'2023-06-23 10:40', 75, 20, 22.0, '2023-06-26 10:45')
-insert into clima (id, ciudad, pais, tempcelsius, ultimaactualizacion, humedad, sensaciontermica, vientokmxh, fechaConsulta) values (3, 'Buenos Aires', 'Argentina', 32.4,'2023-06-26 10:25', 64, 31, 30.00, '2023-06-26 10:25')
-insert into clima (id, ciudad, pais, tempcelsius, ultimaactualizacion, humedad, sensaciontermica, vientokmxh, fechaConsulta) values (4, 'Bogota', 'Colombia', 39,'2023-06-26 10:40', 90, 39, 17.00, '2023-06-26 10:48')
-insert into clima (id, ciudad, pais, tempcelsius, ultimaactualizacion, humedad, sensaciontermica, vientokmxh, fechaConsulta) values (5, 'Catamarca', 'Argentina', 10.5,'2023-06-26 08:30', 38, 11, 11.00, '2023-06-26 08:40')
