@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
+
 @Service
 public class ClimaService implements IClimaService{
 
@@ -29,6 +31,7 @@ public class ClimaService implements IClimaService{
         //String url = config.getWeatherUrl()+"/current.json?key="+config.getWeatherKey()+"&q="+city;
 
         RestTemplate client = new RestTemplate();
+        Date fechaHoraActual = new Date();
 
         String response = client.getForObject(url, String.class);
 
@@ -43,6 +46,7 @@ public class ClimaService implements IClimaService{
         climaDto.setSensacionTermica(clima.getCurrent().feelslikeC);
         climaDto.setVientoKmxH(clima.getCurrent().windKph);
         climaDto.setUltimaActualizacion(clima.getCurrent().lastUpdated);
+        climaDto.setFechaHoraConsulta(fechaHoraActual);
 
         return climaDto;
     }

@@ -19,5 +19,5 @@ public class ClimaDTO {
     private int humedad;
     private Double sensacionTermica;
     private Double vientoKmxH;
-
+    private Date fechaHoraConsulta;
 }
