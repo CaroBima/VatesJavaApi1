@@ -14,6 +14,7 @@ import java.util.Date;
 public class ClimaDTO {
     private String ciudad;
     private String país;
+    private String region;
     private Double tempCelsius;
     private String ultimaActualizacion;
     private int humedad;

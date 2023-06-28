@@ -20,6 +20,8 @@ public class ClimaEntity {
 
     private String ciudad;
 
+    private String region;
+
     private String pais;
 
     @Column(name = "tempcelsius")

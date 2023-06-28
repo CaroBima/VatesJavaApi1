@@ -46,23 +46,27 @@ public class ClimaService implements IClimaService{
 
         clima = objectMapper.readValue(response, Clima.class);
 
-        climaDto.setCiudad(clima.getLocation().name);
-        climaDto.setPaís(clima.getLocation().country);
-        climaDto.setHumedad(clima.getCurrent().humidity);
-        climaDto.setTempCelsius(clima.getCurrent().tempC);
-        climaDto.setSensacionTermica(clima.getCurrent().feelslikeC);
-        climaDto.setVientoKmxH(clima.getCurrent().windKph);
-        climaDto.setUltimaActualizacion(clima.getCurrent().lastUpdated);
+        climaDto.setCiudad(clima.getLocation().getName());
+        climaDto.setPaís(clima.getLocation().getCountry());
+        climaDto.setRegion(clima.getLocation().getRegion());
+        climaDto.setHumedad(clima.getCurrent().getHumidity());
+        climaDto.setTempCelsius(clima.getCurrent().getTempC());
+        climaDto.setSensacionTermica(clima.getCurrent().getFeelslikeC());
+        climaDto.setVientoKmxH(clima.getCurrent().getWindKph());
+        climaDto.setUltimaActualizacion(clima.getCurrent().getLastUpdated());
         //climaDto.setFechaHoraConsulta(fechaHoraActual); // no se pasa al front, lo dejo en el entity
 
         climaEntity.setCiudad(climaDto.getCiudad());
+
         climaEntity.setPais(climaDto.getPaís());
         climaEntity.setHumedad(climaDto.getHumedad());
         climaEntity.setTempCelsius(climaDto.getTempCelsius());
         climaEntity.setSensacionTermica(climaDto.getSensacionTermica());
         climaEntity.setVientoKmxH(climaDto.getVientoKmxH());
         climaEntity.setUltimaActualizacion(climaDto.getUltimaActualizacion());
+        climaEntity.setRegion(climaDto.getRegion());
         climaEntity.setFechaConsulta(fechaHoraActual);
+
 
         climaRepo.save(climaEntity);
 
