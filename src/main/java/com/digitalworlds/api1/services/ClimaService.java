@@ -31,7 +31,7 @@ public class ClimaService implements IClimaService{
         Clima clima;
         ClimaDTO climaDto = new ClimaDTO();
         ClimaEntity climaEntity = new ClimaEntity();
-        ConfigurationApi1 config = new ConfigurationApi1();
+        //ConfigurationApi1 config = new ConfigurationApi1();
 
 
         String url = weatherUrl+"/current.json?key=" + weatherKey +"&q="+city;
