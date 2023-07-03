@@ -12,13 +12,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClimaDTO {
-    private String ciudad;
-    private String país;
+    private String name;
+    private String country;
     private String region;
-    private Double tempCelsius;
-    private String ultimaActualizacion;
-    private int humedad;
-    private Double sensacionTermica;
-    private Double vientoKmxH;
+    private Double tempC;
+    private String lastUpdated;
+    private int humidity;
+    private Double feelslikeC;
+    private Double windKph;
     //private Date fechaHoraConsulta;
 }

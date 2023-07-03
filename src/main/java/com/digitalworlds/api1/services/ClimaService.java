@@ -4,9 +4,11 @@ import com.digitalworlds.api1.configuration.ConfigurationApi1;
 import com.digitalworlds.api1.dto.ClimaDTO;
 import com.digitalworlds.api1.entities.ClimaEntity;
 import com.digitalworlds.api1.model.Clima;
+import com.digitalworlds.api1.repository.ClimaRepository;
 import com.digitalworlds.api1.repository.IClimaRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,38 +28,41 @@ public class ClimaService implements IClimaService{
     @Autowired
     private IClimaRepository climaRepo;
 
+    private ModelMapper modelMapper;
+
+    public ClimaService(final IClimaRepository climaRepository, final ModelMapper modelMapper){
+        this.climaRepo = climaRepository;
+        this.modelMapper = modelMapper;
+    }
+
     @Override
     public ClimaDTO getWeatherData(String city) throws JsonProcessingException {
         Clima clima;
         ClimaDTO climaDto = new ClimaDTO();
         ClimaEntity climaEntity = new ClimaEntity();
-        //ConfigurationApi1 config = new ConfigurationApi1();
-
-
-        String url = weatherUrl+"/current.json?key=" + weatherKey +"&q="+city;
-        //String url = config.getWeatherUrl()+"/current.json?key="+config.getWeatherKey()+"&q="+city;
-
+        ObjectMapper objectMapper = new ObjectMapper();
         RestTemplate client = new RestTemplate();
         Date fechaHoraActual = new Date();
 
-        String response = client.getForObject(url, String.class);
+        String url = weatherUrl+"/current.json?key=" + weatherKey +"&q="+city; //url de la api externa
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        String response = client.getForObject(url, String.class); //traigo la info de la api externa
 
-        clima = objectMapper.readValue(response, Clima.class);
+        clima = objectMapper.readValue(response, Clima.class); //mapeo la info de la appi externa
 
-        climaDto.setCiudad(clima.getLocation().getName());
-        climaDto.setPaís(clima.getLocation().getCountry());
+
+        climaDto.setName(clima.getLocation().getName());
+        climaDto.setCountry(clima.getLocation().getCountry());
         climaDto.setRegion(clima.getLocation().getRegion());
-        climaDto.setHumedad(clima.getCurrent().getHumidity());
-        climaDto.setTempCelsius(clima.getCurrent().getTempC());
-        climaDto.setSensacionTermica(clima.getCurrent().getFeelslikeC());
-        climaDto.setVientoKmxH(clima.getCurrent().getWindKph());
-        climaDto.setUltimaActualizacion(clima.getCurrent().getLastUpdated());
+        climaDto.setHumidity(clima.getCurrent().getHumidity());
+        climaDto.setTempC(clima.getCurrent().getTempC());
+        climaDto.setFeelslikeC(clima.getCurrent().getFeelslikeC());
+        climaDto.setWindKph(clima.getCurrent().getWindKph());
+        climaDto.setLastUpdated(clima.getCurrent().getLastUpdated());
         //climaDto.setFechaHoraConsulta(fechaHoraActual); // no se pasa al front, lo dejo en el entity
 
+        /*
         climaEntity.setCiudad(climaDto.getCiudad());
-
         climaEntity.setPais(climaDto.getPaís());
         climaEntity.setHumedad(climaDto.getHumedad());
         climaEntity.setTempCelsius(climaDto.getTempCelsius());
@@ -67,8 +72,13 @@ public class ClimaService implements IClimaService{
         climaEntity.setRegion(climaDto.getRegion());
         climaEntity.setFechaConsulta(fechaHoraActual);
 
+*/
+        climaEntity = modelMapper.map(climaDto, ClimaEntity.class);
+        climaEntity.setFechaConsulta(fechaHoraActual);
+
 
         climaRepo.save(climaEntity);
+
 
         return climaDto;
     }

@@ -18,25 +18,25 @@ public class ClimaEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String ciudad;
+    private String name;
 
     private String region;
 
-    private String pais;
+    private String country;
 
     @Column(name = "tempcelsius")
-    private Double tempCelsius;
+    private Double tempC;
 
     @Column(name = "ultimaactualizacion")
-    private String ultimaActualizacion;
+    private String lastUpdated;
 
-    private int humedad;
+    private int humidity;
 
     @Column(name = "sensaciontermica")
-    private Double sensacionTermica;
+    private Double feelslikeC;
 
     @Column(name = "vientokmxh")
-    private Double vientoKmxH;
+    private Double windKph;
 
     @Column(name = "fechaconsulta")
     @Temporal(TemporalType.TIMESTAMP)
