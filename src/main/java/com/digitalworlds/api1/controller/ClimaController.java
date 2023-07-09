@@ -32,4 +32,11 @@ public class ClimaController {
 
         return ResponseEntity.ok(climaDto);
     }
+
+    @GetMapping("/clima/data")
+    public ResponseEntity<ClimaDTO> getById (@RequestParam (defaultValue="1" , name="id") Long id){
+        ClimaDTO climaDto = climaService.getWeatherDataById(id);
+
+        return ResponseEntity.ok(climaDto);
+    }
 }
