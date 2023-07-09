@@ -7,10 +7,7 @@ import com.digitalworlds.api1.services.CulturaService;
 import com.digitalworlds.api1.services.IClimaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -20,10 +17,19 @@ public class ClimaController {
     public ClimaController(IClimaService climaService){
         this.climaService = climaService;
     }
+
+    //Devuelve el clima de la ciudad pasada por parámetro
     @GetMapping("/clima")
     public ResponseEntity<ClimaDTO> getExternalWeather(@RequestParam String ciudad) throws JsonProcessingException {
         ClimaDTO climaDto = climaService.getWeatherData(ciudad);
 
         return ResponseEntity.ok(climaDto); //retornar clima
+    }
+
+    @GetMapping("/clima/{id}")
+    public ResponseEntity<ClimaDTO> getWeatherData(@PathVariable Long id){
+        ClimaDTO climaDto = climaService.getWeatherDataById(id);
+
+        return ResponseEntity.ok(climaDto);
     }
 }

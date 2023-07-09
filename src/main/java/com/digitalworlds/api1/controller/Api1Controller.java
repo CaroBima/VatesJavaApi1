@@ -32,6 +32,4 @@ public class Api1Controller {
         return response;
     }
 
-
-
 }

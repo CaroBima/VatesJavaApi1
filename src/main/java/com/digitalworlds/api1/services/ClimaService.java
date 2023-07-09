@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class ClimaService implements IClimaService{
@@ -82,4 +83,12 @@ public class ClimaService implements IClimaService{
 
         return climaDto;
     }
+
+    @Override
+    public ClimaDTO getWeatherDataById(Long id) {
+        ClimaDTO climaDto = modelMapper.map(climaRepo.findById(id), ClimaDTO.class);
+        return climaDto;
+    }
+
+
 }
