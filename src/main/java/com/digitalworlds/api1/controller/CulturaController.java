@@ -3,6 +3,7 @@ package com.digitalworlds.api1.controller;
 import com.digitalworlds.api1.dto.ProgramaDTO;
 import com.digitalworlds.api1.services.ICulturaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class CulturaController {
 
 
     @GetMapping("/programas")
-    public List<ProgramaDTO> getExternalPrograms() {
-        return culturaService.getCulturaData();
+    public ResponseEntity<List<ProgramaDTO>> getExternalPrograms() {
+        return ResponseEntity.ok( culturaService.getCulturaData());
    }
 }
