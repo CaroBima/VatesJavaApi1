@@ -6,6 +6,7 @@ import com.digitalworlds.api1.services.ClimaService;
 import com.digitalworlds.api1.services.CulturaService;
 import com.digitalworlds.api1.services.IClimaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +39,12 @@ public class ClimaController {
         ClimaDTO climaDto = climaService.getWeatherDataById(id);
 
         return ResponseEntity.ok(climaDto);
+    }
+
+    @PostMapping("/clima/savedata")
+    public ResponseEntity saveClima(@RequestBody ClimaDTO climadto){
+        climaService.saveClima(climadto);
+
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }

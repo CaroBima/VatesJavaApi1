@@ -12,7 +12,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClimaDTO {
-    //private Long id;
     private String name;
     private String country;
     private String region;

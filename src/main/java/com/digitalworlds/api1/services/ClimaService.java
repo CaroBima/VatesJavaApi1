@@ -11,6 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -88,6 +90,17 @@ public class ClimaService implements IClimaService{
     public ClimaDTO getWeatherDataById(Long id) {
         ClimaDTO climaDto = modelMapper.map(climaRepo.findById(id), ClimaDTO.class);
         return climaDto;
+    }
+
+    @Override
+    public void saveClima(ClimaDTO climaDto) {
+        ClimaEntity climaEntity = new ClimaEntity();
+        Date fechaHoraActual = new Date();
+
+        climaEntity = modelMapper.map(climaDto, ClimaEntity.class);
+        climaEntity.setFechaConsulta(fechaHoraActual);
+
+        climaRepo.save(climaEntity);
     }
 
 
