@@ -47,4 +47,20 @@ public class ClimaController {
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/clima/borrardata")
+    public ResponseEntity deleteWeatherData(@RequestParam Long id){
+        climaService.deleteWeather(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/clima/putdata")
+    public ResponseEntity putWeatherData(@RequestParam Long id){
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    public void setClimaService(ClimaService climaService) {
+        this.climaService = climaService;
+    }
 }

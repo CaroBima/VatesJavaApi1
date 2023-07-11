@@ -8,4 +8,5 @@ public interface IClimaService {
     public ClimaDTO getWeatherData(String city) throws JsonProcessingException;
     public ClimaDTO getWeatherDataById(Long id);
     public void saveClima(ClimaDTO climaDto);
+    public void deleteWeather(Long id);
 }
