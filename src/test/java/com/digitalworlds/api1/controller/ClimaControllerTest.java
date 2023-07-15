@@ -1,6 +1,7 @@
 package com.digitalworlds.api1.controller;
 
 
+import com.digitalworlds.api1.dto.ClimaDTO;
 import com.digitalworlds.api1.services.ClimaService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,25 @@ class ClimaControllerTest {
     @MockBean
     private ClimaService climaService;
 
+    ClimaDTO climaResponse = ClimaDTO.builder()
+            .name("Córdoba")
+            .country("Argentine")
+            .region("Córdoba")
+            .tempC(14.0)
+            .lastUpdated("2023-07-10 15:45")
+            .humidity(94)
+            .feelslikeC(13.7)
+            .windKph(6.1)
+            .build();
+
+
     @Test
     void getExternalWeather_givenValidCity_shouldSuccess() throws Exception {
         String ciudad = "Córdoba"; // Ciudad válida para la prueba
 
-        // Configurar el mock para que llame al método real del servicio
-        when(climaService.getWeatherData(ciudad)).thenCallRealMethod();
+        when(climaService.getWeatherData(ciudad)).thenReturn(climaResponse);
+
+        //when(climaService.getWeatherData(ciudad)).thenReturn(new ClimaDTO());
 
         this.mockMvc.perform(get("/api/clima").param("ciudad", ciudad))
                 .andDo(print())
