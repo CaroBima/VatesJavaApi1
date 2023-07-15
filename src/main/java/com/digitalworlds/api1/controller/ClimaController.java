@@ -1,9 +1,7 @@
 package com.digitalworlds.api1.controller;
 
 import com.digitalworlds.api1.dto.ClimaDTO;
-import com.digitalworlds.api1.model.Clima;
 import com.digitalworlds.api1.services.ClimaService;
-import com.digitalworlds.api1.services.CulturaService;
 import com.digitalworlds.api1.services.IClimaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.HttpStatus;

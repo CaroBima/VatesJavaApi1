@@ -18,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-
 @WebMvcTest(ClimaController.class)
 class ClimaControllerTest {
 
@@ -38,7 +37,6 @@ class ClimaControllerTest {
             .feelslikeC(13.7)
             .windKph(6.1)
             .build();
-
 
     @Test
     @DisplayName("Cuando busco el clima por ciudad me devuelve los datos del clima.")
