@@ -3,6 +3,7 @@ package com.digitalworlds.api1.controller;
 
 import com.digitalworlds.api1.dto.ClimaDTO;
 import com.digitalworlds.api1.services.ClimaService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -40,12 +41,11 @@ class ClimaControllerTest {
 
 
     @Test
+    @DisplayName("Cuando busco el clima por ciudad me devuelve los datos del clima.")
     void getExternalWeather_givenValidCity_shouldSuccess() throws Exception {
-        String ciudad = "Córdoba"; // Ciudad válida para la prueba
+        String ciudad = "Córdoba";
 
         when(climaService.getWeatherData(ciudad)).thenReturn(climaResponse);
-
-        //when(climaService.getWeatherData(ciudad)).thenReturn(new ClimaDTO());
 
         this.mockMvc.perform(get("/api/clima").param("ciudad", ciudad))
                 .andDo(print())
