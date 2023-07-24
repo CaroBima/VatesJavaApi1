@@ -27,7 +27,7 @@ class ClimaControllerTest {
     @MockBean
     private ClimaService climaService;
 
-    ClimaDTO climaResponse = ClimaDTO.builder()
+    public static ClimaDTO climaResponse = ClimaDTO.builder()
             .name("Córdoba")
             .country("Argentine")
             .region("Córdoba")
@@ -37,6 +37,8 @@ class ClimaControllerTest {
             .feelslikeC(13.7)
             .windKph(6.1)
             .build();
+
+    private static final String mockResponse = "{ \"name\": \"Córdoba\", \"country\": \"Argentine\", \"region\": \"Córdoba\", \"tempC\": 14.0, \"lastUpdated\": \"2023-07-10 15:45\", \"humidity\": 94, \"feelslikeC\": 13.7 , \"windKph\": 6.1 }";
 
     @Test
     @DisplayName("Cuando busco el clima por ciudad me devuelve los datos del clima.")
@@ -48,6 +50,6 @@ class ClimaControllerTest {
         this.mockMvc.perform(get("/api/clima").param("ciudad", ciudad))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json("{ \"name\": \"Córdoba\", \"country\": \"Argentine\", \"region\": \"Córdoba\", \"tempC\": 14.0, \"lastUpdated\": \"2023-07-10 15:45\", \"humidity\": 94, \"feelslikeC\": 13.7 , \"windKph\": 6.1 }"));
+                .andExpect(content().json(mockResponse));
     }
 }
