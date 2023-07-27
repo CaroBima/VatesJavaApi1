@@ -9,9 +9,12 @@ import com.digitalworlds.api1.model.Clima;
 import com.digitalworlds.api1.repository.IClimaRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import static org.mockito.ArgumentMatchers.any;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.junit.jupiter.api.DisplayName;
@@ -20,24 +23,23 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.mockito.Mockito.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.util.Assert;
 import static org.mockito.Mockito.times;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 
 
-import static org.hamcrest.Matchers.any;
-import static org.mockito.Mockito.*;
+
 
 
 @SpringBootTest
-//@WebMvcTest(ClimaService.class)
 class ClimaServiceTest {
 
-    //@InjectMocks
-    @Mock
+    @InjectMocks
     private ClimaService climaService;
 
     @Mock
@@ -57,6 +59,7 @@ class ClimaServiceTest {
 
     @Mock
     Clima clima;
+
 
     @Captor
     ArgumentCaptor<ClimaEntity> climaCaptor;
@@ -80,6 +83,7 @@ class ClimaServiceTest {
 
     private static final String mockResponse = "{ \"name\": \"Córdoba\", \"country\": \"Argentine\", \"region\": \"Córdoba\", \"tempC\": 14.0, \"lastUpdated\": \"2023-07-10 15:45\", \"humidity\": 94, \"feelslikeC\": 13.7 , \"windKph\": 6.1 }";
 
+
     @Test
     @DisplayName("Cuando busco el clima por ciudad me devuelve los datos del clima y guarda la consulta en la BBDD.")
     void getWeatherData_givenValidCity_shouldSuccess() throws JsonProcessingException {
@@ -89,25 +93,19 @@ class ClimaServiceTest {
 
         when(client.getForObject(url, String.class)).thenReturn(mockResponse); //consulta en la api externa y trae la info de la api externa
         when(objectMapper.readValue(mockResponse, Clima.class)).thenReturn(clima); //mapea la info a una clase clima
-        when(modelMapper.map(climaDto, ClimaEntity.class)).thenReturn(climaEntity); //la pasa a clima entity para agregarle la hora y guardarla
+        when(modelMapper.map(climaDto, ClimaEntity.class)).thenReturn(climaEntity); //la mapea a climaEntity para agregarle la hora y guardarla
 
         climaEntity.setFechaConsulta(new Date());
 
-        when(client.getForObject(url, String.class)).thenReturn((response));
-
-
-      /*  climaService.getWeatherData(city);
+       /* ClimaDTO consultaClima = climaService.getWeatherData(city);
 
         verify(climaRepository).save(climaCaptor.capture());
-
-        ClimaEntity  capturedClimaEntity = climaCaptor.getValue();
+        ClimaEntity entidadCapturada = climaCaptor.getValue();
+        verify(climaRepository, times(1)).save(any(ClimaEntity.class));
 */
-//        verify(climaRepository, times(1)).save(climaEntity); //verifico que se llame una vez al metodo para gardar la entidad en la bbdd
+        Assert.notNull(climaEntity);
+        //Assert.notNull(consultaClima);
 
-        /*
-          mapea la info a una clase climaEntity y le agrega fecha y hora actual
-          guarda el climaEntity en el repo
-        */
 
     }
 
