@@ -4,10 +4,13 @@ import com.digitalworlds.api1.controller.ClimaController;
 import com.digitalworlds.api1.dto.ClimaDTO;
 
 
+import com.digitalworlds.api1.entities.ClimaEntity;
 import com.digitalworlds.api1.model.Clima;
 import com.digitalworlds.api1.repository.IClimaRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,10 +22,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
+
+
 import static org.hamcrest.Matchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @SpringBootTest
@@ -45,7 +52,14 @@ class ClimaServiceTest {
     ObjectMapper objectMapper;
 
     @Mock
+    ClimaEntity climaEntity;
+
+    @Mock
     Clima clima;
+
+    @Captor
+    ArgumentCaptor<ClimaEntity> climaCaptor;
+
     public static ClimaDTO climaDto = ClimaDTO.builder()
             .name("Córdoba")
             .country("Argentine")
@@ -71,16 +85,20 @@ class ClimaServiceTest {
         String ciudad = "Córdoba";
         String url = weatherUrl+"/current.json?key=" + weatherKey +"&q="+ciudad; //url de la api externa
 
+
         when(client.getForObject(url, String.class)).thenReturn(mockResponse); //consulta en la api externa y trae la info de la api externa
         when(objectMapper.readValue(mockResponse, Clima.class)).thenReturn(clima); //mapea la info a una clase clima
+        when(modelMapper.map(climaDto, ClimaEntity.class)).thenReturn(climaEntity); //la pasa a clima entity para agregarle la hora y guardarla
 
+        climaEntity.setFechaConsulta(new Date());
+        verify(climaRepository).save(climaCaptor.capture());
+
+//        verify(climaRepository, times(1)).save(climaEntity); //verifico que se llame una vez al metodo para gardar la entidad en la bbdd
 
         /*
-        *
-
           mapea la info a una clase climaEntity y le agrega fecha y hora actual
           guarda el climaEntity en el repo
-        * */
+        */
 
     }
 

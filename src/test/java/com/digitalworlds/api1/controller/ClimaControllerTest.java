@@ -27,6 +27,7 @@ class ClimaControllerTest {
     @MockBean
     private ClimaService climaService;
 
+
     public static ClimaDTO climaResponse = ClimaDTO.builder()
             .name("Córdoba")
             .country("Argentine")
