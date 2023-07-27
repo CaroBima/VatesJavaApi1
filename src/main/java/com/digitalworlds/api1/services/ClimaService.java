@@ -5,6 +5,7 @@ import com.digitalworlds.api1.dto.ClimaDTO;
 import com.digitalworlds.api1.entities.ClimaEntity;
 import com.digitalworlds.api1.model.Clima;
 import com.digitalworlds.api1.repository.IClimaRepository;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
-
 
 import java.util.Date;
 

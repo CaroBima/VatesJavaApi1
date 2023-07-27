@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.ResponseEntity;
 
 public interface IClimaService {
-    public ClimaDTO getWeatherData(String city) throws JsonProcessingException;
+    ClimaDTO getWeatherData(String city);
     public ClimaDTO getWeatherDataById(Long id);
     public void saveClima(ClimaDTO climaDto);
     public void deleteWeather(Long id);
