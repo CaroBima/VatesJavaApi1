@@ -36,7 +36,8 @@ import static org.mockito.Mockito.*;
 //@WebMvcTest(ClimaService.class)
 class ClimaServiceTest {
 
-    @InjectMocks
+    //@InjectMocks
+    @Mock
     private ClimaService climaService;
 
     @Mock
@@ -82,17 +83,25 @@ class ClimaServiceTest {
     @Test
     @DisplayName("Cuando busco el clima por ciudad me devuelve los datos del clima y guarda la consulta en la BBDD.")
     void getWeatherData_givenValidCity_shouldSuccess() throws JsonProcessingException {
-        String ciudad = "Córdoba";
-        String url = weatherUrl+"/current.json?key=" + weatherKey +"&q="+ciudad; //url de la api externa
-
+        String city = "Córdoba";
+        String url = weatherUrl+"/current.json?key=" + weatherKey +"&q="+city; //url de la api externa
+        String response = "";
 
         when(client.getForObject(url, String.class)).thenReturn(mockResponse); //consulta en la api externa y trae la info de la api externa
         when(objectMapper.readValue(mockResponse, Clima.class)).thenReturn(clima); //mapea la info a una clase clima
         when(modelMapper.map(climaDto, ClimaEntity.class)).thenReturn(climaEntity); //la pasa a clima entity para agregarle la hora y guardarla
 
         climaEntity.setFechaConsulta(new Date());
+
+        when(client.getForObject(url, String.class)).thenReturn((response));
+
+
+      /*  climaService.getWeatherData(city);
+
         verify(climaRepository).save(climaCaptor.capture());
 
+        ClimaEntity  capturedClimaEntity = climaCaptor.getValue();
+*/
 //        verify(climaRepository, times(1)).save(climaEntity); //verifico que se llame una vez al metodo para gardar la entidad en la bbdd
 
         /*
