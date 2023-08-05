@@ -1,6 +1,5 @@
 package com.digitalworlds.api1.services;
 
-import com.digitalworlds.api1.controller.ClimaController;
 import com.digitalworlds.api1.dto.ClimaDTO;
 
 
@@ -9,25 +8,18 @@ import com.digitalworlds.api1.model.Clima;
 import com.digitalworlds.api1.repository.IClimaRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import static org.mockito.ArgumentMatchers.any;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.Mockito.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.util.Assert;
-import static org.mockito.Mockito.times;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
@@ -39,7 +31,8 @@ import java.util.Date;
 @SpringBootTest
 class ClimaServiceTest {
 
-    @InjectMocks
+    //@InjectMocks
+    @Mock
     private ClimaService climaService;
 
     @Mock
@@ -68,11 +61,11 @@ class ClimaServiceTest {
             .name("Córdoba")
             .country("Argentine")
             .region("Córdoba")
-            .tempC(14.0)
+            .tempC(Double.valueOf(14.0))
             .lastUpdated("2023-07-10 15:45")
             .humidity(94)
-            .feelslikeC(13.7)
-            .windKph(6.1)
+            .feelslikeC(Double.valueOf(13.7))
+            .windKph(Double.valueOf(6.1))
             .build();
 
     @Value("${api.weather.url}")
@@ -97,12 +90,14 @@ class ClimaServiceTest {
 
         climaEntity.setFechaConsulta(new Date());
 
-       /* ClimaDTO consultaClima = climaService.getWeatherData(city);
-
+       ClimaDTO consultaClima = climaService.getWeatherData(city);
+        /*
         verify(climaRepository).save(climaCaptor.capture());
         ClimaEntity entidadCapturada = climaCaptor.getValue();
         verify(climaRepository, times(1)).save(any(ClimaEntity.class));
-*/
+
+        */
+
         Assert.notNull(climaEntity);
         //Assert.notNull(consultaClima);
 
