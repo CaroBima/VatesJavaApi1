@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/clima/savedata","/clima/borrardata", "/clima/putdata").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/clima/borrardata", "/clima/putdata").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT,  "/clima/putdata").hasRole("ADMIN")
-                //.antMatchers(HttpMethod.GET, "/realtime/history").permitAll()
+                .antMatchers(HttpMethod.POST, "/register", "/login").permitAll()
                 .anyRequest()
                 //.permitAll()
                 .authenticated()

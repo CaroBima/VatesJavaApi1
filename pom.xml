@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.12</version>
+		<version>2.6.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.digitalworlds</groupId>
-	<artifactId>api.1</artifactId>
+	<artifactId>Clima</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>api.1</name>
-	<description>Api 1</description>
+	<name>Clima</name>
+	<description>Clima</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -26,6 +26,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.11</version>
 		</dependency>
 
 		<dependency>

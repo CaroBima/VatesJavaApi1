@@ -1,10 +1,13 @@
 package com.digitalworlds.api1.services;
 
+import com.digitalworlds.api1.dto.UsuarioLoginDto;
 import com.digitalworlds.api1.model.Usuario;
 import com.digitalworlds.api1.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UsuarioService implements IUsuarioService{
@@ -21,34 +24,41 @@ public class UsuarioService implements IUsuarioService{
 
 
     @Override
-    public int crearUsuario(Usuario usuario) {
-       /* Usuario usuarioSave = new Usuario();
-        int estadoCreacion = 0; // 1 - se guardo ok, 2 - el nombre de usuario ya esta siendo utilizado, 0 - cualquier otro error
+    public Usuario crearUsuario(Usuario usuario) {
+       Usuario usuarioSave = new Usuario();
+       Usuario usuGuardado = new Usuario();
 
-        //busco el usuario para ver si el nombre de usuario ya se encuentra registado
-        Usuario usuGuardado = usuarioRepo.findByNombreUsuario(usuario.getNombreUsuario());
+       //busco el usuario para ver si el nombre de usuario ya se encuentra registado
+        try{
+            usuGuardado = usuarioRepo.findByNombreUsuario(usuario.getNombreUsuario()).orElse(null);
 
-        if(usuGuardado.getNombreUsuario() == null){
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Error en la busqueda del nombre de usuario");
+        }
 
+        if(usuGuardado == null){ //si el usuario no esta en la bbdd lo guardo
             try{
                 usuarioSave.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
                 usuarioSave.setNombreUsuario(usuario.getNombreUsuario());
 
                 usuarioRepo.save(usuarioSave);
-                estadoCreacion = 1;
+                return usuario; //Devuelve el usuario registrado original para generar el token
+                //ver de devolver el token directamente desde aca
             }catch (Exception e) {
                 e.printStackTrace();
-                estadoCreacion = 0;
+
                 System.out.println("El usuario no ha podido ser guardado");
             }
         }else{
-            estadoCreacion = 2;
+            System.out.println("Nombre de usuario ya registrado");
+            return null; //ver esto
         }
 
-        return estadoCreacion; // 1 - se guardo ok, 2 - el nombre de usuario ya esta siendo utilizado, 0 - cualquier otro error
-   */
-        return 0;
-    }
+
+        return null;
+        //return usuario; //devolviendo esto no valido si el usuario ya estaba registrado, devuelve los datos el usuario
+   }
 
 
 
@@ -59,7 +69,7 @@ public class UsuarioService implements IUsuarioService{
         Usuario usuGuardado = new Usuario();
 
         try {
-            usuGuardado = usuarioRepo.findByNombreUsuario(usuario.getNombreUsuario()); //busco el usuario por el nombre de usuario ingresado
+            usuGuardado = usuarioRepo.findByNombreUsuario(usuario.getNombreUsuario()).orElse(null); //busco el usuario por el nombre de usuario ingresado
 
             if (usuGuardado != null) {
                 if (usuario.getNombreUsuario().equals(usuGuardado.getNombreUsuario()) && passwordEncoder.matches(usuario.getContrasenia(), usuGuardado.getContrasenia())) {
@@ -73,6 +83,7 @@ public class UsuarioService implements IUsuarioService{
 
         return logueo;
     }
+
 
     @Override
     public Usuario buscarUnUsuario(Long idUsuario) {
