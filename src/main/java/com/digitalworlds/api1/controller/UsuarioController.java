@@ -27,26 +27,27 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping("/login")
-    public ResponseEntity<UsuarioLoginDto> login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+    public ResponseEntity<ResponseMessage<UsuarioLoginDto>> login(@RequestBody Usuario usuario) {
         UsuarioLoginDto userLoginDto = new UsuarioLoginDto();
-        Usuario usuario = new Usuario();
 
-        usuario.setNombreUsuario(username);
-        usuario.setContrasenia(pwd);
         try {
             if (usuarioService.logueoUsuario(usuario)) {
-                String token = securityConfig.getJWTToken(username);
-                userLoginDto.setNombreUsuario(username);
+                String token = securityConfig.getJWTToken(usuario.getNombreUsuario());
+                userLoginDto.setNombreUsuario(usuario.getNombreUsuario());
                 userLoginDto.setToken(token);
 
+            }else if(!usuarioService.logueoUsuario(usuario)){
+                userLoginDto.setNombreUsuario(usuario.getNombreUsuario());
+                userLoginDto.setToken(null);
+                return this.respuestaConflict(userLoginDto, "El nombre de usuario o la contraseña son incorrectos");
             }
 
         }catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error en login");
+            return this.respuestaConflict(userLoginDto, "Error en el login");
         }
 
-        return ResponseEntity.ok(userLoginDto); //ver de retornar error cuando no este ok el login
+        return this.respuestaOk(userLoginDto, "Bienvenido"); //ver de retornar error cuando no este ok el login
     }
 
     @PostMapping(value="/register")
@@ -59,7 +60,7 @@ public class UsuarioController {
             usuarioCreado = usuarioService.crearUsuario(usuario);
 
             if(usuarioCreado != null){
-            usuarioLoginDtoCreado = this.login(usuarioCreado.getNombreUsuario(), usuarioCreado.getContrasenia()).getBody();
+            usuarioLoginDtoCreado = this.login(usuarioCreado).getBody().getData();
 
             return this.respuestaOk(usuarioLoginDtoCreado, "Usuario creado correctamente");
             }else{
