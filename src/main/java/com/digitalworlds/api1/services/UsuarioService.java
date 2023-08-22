@@ -1,9 +1,11 @@
 package com.digitalworlds.api1.services;
 
 import com.digitalworlds.api1.dto.UsuarioLoginDto;
+import com.digitalworlds.api1.model.ResponseMessage;
 import com.digitalworlds.api1.model.Usuario;
 import com.digitalworlds.api1.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,18 +49,18 @@ public class UsuarioService implements IUsuarioService{
                 //ver de devolver el token directamente desde aca
             }catch (Exception e) {
                 e.printStackTrace();
-
                 System.out.println("El usuario no ha podido ser guardado");
             }
         }else{
             System.out.println("Nombre de usuario ya registrado");
-            return null; //ver esto
+            //return null; //ver esto
         }
 
 
-        return null;
+        return null; //retorno null en caso de que el usuario ya se encuentre previamente registrado
         //return usuario; //devolviendo esto no valido si el usuario ya estaba registrado, devuelve los datos el usuario
    }
+
 
 
 
@@ -89,4 +91,7 @@ public class UsuarioService implements IUsuarioService{
     public Usuario buscarUnUsuario(Long idUsuario) {
         return usuarioRepo.findById(idUsuario).orElse(null);
     }
+
+
+
 }
