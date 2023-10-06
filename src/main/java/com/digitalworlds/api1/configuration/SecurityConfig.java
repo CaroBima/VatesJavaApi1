@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 600000))
                 .signWith(SignatureAlgorithm.HS512,
-                        secretKey.getBytes()).compact();
+                        secretKey.getBytes(Charset.forName("UTF-8"))).compact();
 
         return "Bearer " + token;
     }
@@ -74,6 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+   /*
     @Bean
     @Override
     protected UserDetailsService userDetailsService(){
@@ -94,4 +96,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         return userDetailsManager;
     }
+
+    */
 }

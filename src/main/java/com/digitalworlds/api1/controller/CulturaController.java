@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
+/**
+ * Clase controller que se utiliza para consumir la api de cultura.gob.ar:
+ *
+ */
 @RestController
 @RequestMapping("/api")
 public class CulturaController {
@@ -23,6 +27,11 @@ public class CulturaController {
     }*/
 
 
+    /**
+     *Trae los programas desde https://cultura.gob.ar/api/v2.0/programas
+     *
+     * @return ResponseEntity
+     */
     @GetMapping("/programas")
     public ResponseEntity<List<ProgramaDTO>> getExternalPrograms() {
         return ResponseEntity.ok( culturaService.getCulturaData());

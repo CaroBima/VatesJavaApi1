@@ -1,6 +1,7 @@
 package com.digitalworlds.api1.configuration;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ JWTAuthorizationFilter extends OncePerRequestFilter {
 
     private final String HEADER = "Authorization";
     private final String PREFIX = "Bearer ";
-    private final String SECRET = "mySecretKey";
+    private final String SECRET = "AnastasiaPortfolio";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -50,7 +51,8 @@ JWTAuthorizationFilter extends OncePerRequestFilter {
 
     private Claims validateToken(HttpServletRequest request) {
         String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
-        return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
+        return Jwts.parser().setSigningKey(SECRET.getBytes(Charset.forName("UTF-8")))
+                .parseClaimsJws(jwtToken.replace("{", "").replace("}","")).getBody();//SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
     }
 
     /**
