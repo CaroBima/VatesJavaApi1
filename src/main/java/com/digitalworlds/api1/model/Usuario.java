@@ -29,4 +29,15 @@ public class Usuario {
 
     @ManyToOne
     private RolUsuario rolUsuario;
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "idUsuario=" + idUsuario +
+                ", nombreUsuario='" + nombreUsuario + '\'' +
+                ", contrasenia='" + contrasenia + '\'' +
+                ", email='" + email + '\'' +
+                ", rolUsuario=" + rolUsuario +
+                '}';
+    }
 }

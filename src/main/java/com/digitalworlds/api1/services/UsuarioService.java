@@ -33,7 +33,6 @@ public class UsuarioService implements IUsuarioService{
        //busco el usuario para ver si el nombre de usuario ya se encuentra registado
         try{
             usuGuardado = usuarioRepo.findByNombreUsuario(usuario.getNombreUsuario()).orElse(null);
-
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("Error en la busqueda del nombre de usuario");
@@ -43,7 +42,7 @@ public class UsuarioService implements IUsuarioService{
             try{
                 usuarioSave.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
                 usuarioSave.setNombreUsuario(usuario.getNombreUsuario());
-
+                System.out.println("llega a la parte del guardado, usuario: " + usuarioSave.toString());
                 usuarioRepo.save(usuarioSave);
                 return usuario; //Devuelve el usuario registrado original para generar el token
                 //ver de devolver el token directamente desde aca
@@ -52,7 +51,7 @@ public class UsuarioService implements IUsuarioService{
                 System.out.println("El usuario no ha podido ser guardado");
             }
         }else{
-            System.out.println("Nombre de usuario ya registrado");
+            System.out.println("Nombre de usuario ya registrado: " + usuGuardado.toString());
             //return null; //ver esto
         }
 
