@@ -21,12 +21,6 @@ public class CulturaController {
     @Autowired
     ICulturaService culturaService;
 
-   /*@Autowired
-    public CulturaController(CulturaService CulturaService) {
-        this.CulturaService = CulturaService;
-    }*/
-
-
     /**
      *Trae los programas desde https://cultura.gob.ar/api/v2.0/programas
      *
@@ -36,5 +30,4 @@ public class CulturaController {
     public ResponseEntity<List<ProgramaDTO>> getExternalPrograms() {
         return ResponseEntity.ok( culturaService.getCulturaData());
    }
-
 }

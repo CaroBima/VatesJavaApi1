@@ -28,7 +28,6 @@ public class Api1Controller {
     public String getExternalData(){
         RestTemplate client = new RestTemplate();
         String response = client.getForObject("https://www.google.com.ar", String.class);
-
         return response;
     }
 

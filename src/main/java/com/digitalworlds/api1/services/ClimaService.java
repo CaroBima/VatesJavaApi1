@@ -63,18 +63,17 @@ public class ClimaService implements IClimaService{
             climaDto.setLastUpdated(clima.getCurrent().getLastUpdated());
             //climaDto.setFechaHoraConsulta(fechaHoraActual); // no se pasa al front, lo dejo en el entity
 
-
             climaEntity = modelMapper.map(climaDto, ClimaEntity.class);
             climaEntity.setFechaConsulta(fechaHoraActual);
-
 
             climaRepo.save(climaEntity);
         } catch (JsonProcessingException j){
             System.out.println("Error en el mapeo del json");
+            j.printStackTrace();
         } catch(ResourceAccessException e){
             System.out.println("Revisar conexión a internet o disponibilidad de la api externa");
+            e.printStackTrace();
         }
-
         return climaDto;
     }
 

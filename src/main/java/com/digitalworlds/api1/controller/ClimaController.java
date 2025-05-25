@@ -21,28 +21,24 @@ public class ClimaController {
     @GetMapping("/clima")
     public ResponseEntity<ClimaDTO> getExternalWeather(@RequestParam String ciudad) throws JsonProcessingException {
         ClimaDTO climaDto = climaService.getWeatherData(ciudad);
-
         return ResponseEntity.ok(climaDto); //retornar clima
     }
 
     @GetMapping("/clima/{id}")
     public ResponseEntity<ClimaDTO> getWeatherData(@PathVariable Long id){
         ClimaDTO climaDto = climaService.getWeatherDataById(id);
-
         return ResponseEntity.ok(climaDto);
     }
 
     @GetMapping("/clima/data")
     public ResponseEntity<ClimaDTO> getById (@RequestParam (defaultValue="1" , name="id") Long id){
         ClimaDTO climaDto = climaService.getWeatherDataById(id);
-
         return ResponseEntity.ok(climaDto);
     }
 
     @PostMapping("/clima/savedata")
     public ResponseEntity saveClima(@RequestBody ClimaDTO climadto){
         climaService.saveClima(climadto);
-
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -54,7 +50,6 @@ public class ClimaController {
 
     @PutMapping("/clima/putdata")
     public ResponseEntity putWeatherData(@RequestParam Long id){
-
         return new ResponseEntity(HttpStatus.OK);
     }
 

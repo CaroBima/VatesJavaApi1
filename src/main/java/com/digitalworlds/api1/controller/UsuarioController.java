@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.SQLOutput;
-
 /**
  * Clase controller que maneja el registro y logueo de usuarios
  */
@@ -41,18 +39,15 @@ public class UsuarioController {
                 String token = securityConfig.getJWTToken(usuario.getNombreUsuario());
                 userLoginDto.setNombreUsuario(usuario.getNombreUsuario());
                 userLoginDto.setToken(token);
-
             }else if(!usuarioService.logueoUsuario(usuario)){
                 userLoginDto.setNombreUsuario(usuario.getNombreUsuario());
                 userLoginDto.setToken(null);
                 return this.respuestaConflict(userLoginDto, "El nombre de usuario o la contraseña son incorrectos");
             }
-
         }catch (Exception e) {
             e.printStackTrace();
             return this.respuestaConflict(userLoginDto, "Error en el login");
         }
-
         return this.respuestaOk(userLoginDto, "Bienvenido"); //ver de retornar error cuando no este ok el login
     }
 
@@ -64,29 +59,22 @@ public class UsuarioController {
      */
     @PostMapping(value="/register")
     public ResponseEntity<ResponseMessage<UsuarioLoginDto>> register(@RequestBody Usuario usuario) {
-
         Usuario usuarioCreado = new Usuario(); // usuario creado
         UsuarioLoginDto usuarioLoginDtoCreado = new UsuarioLoginDto();
-        System.out.println("usuario: " + usuario.toString());
-
         try {
             usuarioCreado = usuarioService.crearUsuario(usuario);
-
             if(usuarioCreado != null){
-            usuarioLoginDtoCreado = this.login(usuarioCreado).getBody().getData();
-
-            return this.respuestaOk(usuarioLoginDtoCreado, "Usuario creado correctamente");
+                usuarioLoginDtoCreado = this.login(usuarioCreado).getBody().getData();
+                return this.respuestaOk(usuarioLoginDtoCreado, "Usuario creado correctamente");
             }else{
                 String mensaje = "El nombre de usuario ya se encuentra en uso";
                 usuarioLoginDtoCreado.setNombreUsuario(usuario.getNombreUsuario());
-
                 return this.respuestaConflict(usuarioLoginDtoCreado, mensaje);
             }
         } catch (Exception e) {
             e.printStackTrace();
             return this.respuestaConflict(usuarioLoginDtoCreado, "Se ha producido un error al guardar el usuario");
         }
-
     }
 
     /**
@@ -98,11 +86,9 @@ public class UsuarioController {
      */
     public ResponseEntity<ResponseMessage<UsuarioLoginDto>> respuestaOk(UsuarioLoginDto usuarioARetornar, String mensajeAdicional) {
         ResponseMessage<UsuarioLoginDto> responseMessage = new ResponseMessage<>(usuarioARetornar, mensajeAdicional);
-
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(responseMessage);
     }
-
 
     /**
      * Genera y devuelve un ResponseEntity en caso de que se produzca un error en la creación del usuario
@@ -113,7 +99,6 @@ public class UsuarioController {
      */
     public ResponseEntity<ResponseMessage<UsuarioLoginDto>> respuestaConflict(UsuarioLoginDto usuarioARetornar, String mensajeAdicional) {
         ResponseMessage<UsuarioLoginDto> responseMessage = new ResponseMessage<>(usuarioARetornar, mensajeAdicional);
-
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(responseMessage);
     }
